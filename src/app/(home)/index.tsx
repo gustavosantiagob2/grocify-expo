@@ -7,7 +7,10 @@ export default function Page() {
   const { signOut } = useClerk();
 
   return (
-    <View className="bg-white dark:bg-black p-4" style={styles.container}>
+    <View
+      className="bg-backgound text-muted-foreground dark:bg-black p-4"
+      style={styles.container}
+    >
       <Text style={styles.title}>Welcome!</Text>
 
       <Show when="signed-in">
@@ -16,21 +19,9 @@ export default function Page() {
           <Text style={styles.buttonText}>Sign out</Text>
         </Pressable>
 
-        <View
-          style={{
-            width: 50,
-            height: 50,
-            borderRadius: 18,
-            overflow: "hidden",
-            alignItems: "center",
-          }}
-        >
+        <View style={{ width: 50, height: 50, borderRadius: 18, overflow: "hidden", alignItems: "center", }} >
           <UserButton />
         </View>
-
-        {/* // # DEPOIS QUANDO ESTIVER COM O CELULAR RODAR O NPX RUN:ANDROID PARA RODAR COM ESSE
-        // POIS ESSE CÓDIGO SO FUNCIONA DEPOIS DO PRÉ BUILD NATIVO NO EXPO GO NÃO FUNCIONA POIS É MUITO PESADO
-        <UserProfileView style={{ flex: 1 }} /> */}
       </Show>
     </View>
   );
