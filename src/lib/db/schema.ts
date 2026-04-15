@@ -7,5 +7,6 @@ export const groceryItems = pgTable("grocery_items",{
     quantity: integer("quantity").notNull().default(1),
     purchased: boolean("purchased").notNull().default(false),
     priority: text("priority").notNull().default("medium"),
-    update_at: bigint("update_at", {mode: "number"}).notNull() 
+    updated_at: bigint("updated_at", {mode: "number"}).notNull() 
 });
+
