@@ -1,52 +1,72 @@
+import CompletedItems from "@/components/list/CompletedItems";
+import ListHeroCard from "@/components/list/ListHeroCard";
+import PadingItemCard from "@/components/list/PadingItemCard";
+import TabScreenBackground from "@/components/TabScreenBackground";
+import { useGroceryStore } from "@/store/grocery-store";
 import { Show, useClerk, useUser } from "@clerk/expo";
 import { UserButton } from "@clerk/expo/native";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, ScrollView, FlatList } from "react-native";
 
-export default function Page() {
-  const { user } = useUser();
-  const { signOut } = useClerk();
+
+export default function ListScreen() {
+  const {items} = useGroceryStore();
+  const pedingItems = items.filter( (item) => !item.purchased )
 
   return (
-    <View
-      className="bg-backgound text-muted-foreground dark:bg-black p-4"
-      style={styles.container}
-    >
-      <Text style={styles.title}>Welcome!</Text>
-
-      <Show when="signed-in">
-        <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
-        <Pressable style={styles.button} onPress={() => signOut()}>
-          <Text style={styles.buttonText}>Sign out</Text>
-        </Pressable>
-
-        <View style={{ width: 50, height: 50, borderRadius: 18, overflow: "hidden", alignItems: "center", }} >
-          <UserButton />
+        <FlatList
+        className="flex-1 bg-background dark:bg-background-dark"
+        data={pedingItems}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <PadingItemCard item={item}/>}
+        contentContainerStyle={{padding: 20, gap:14}}
+        contentInsetAdjustmentBehavior="automatic"
+        ListHeaderComponent={
+          <View style={{gap:14}}>
+            <TabScreenBackground/>
+            <ListHeroCard/>
+            <View className="flex-row items-center justify-between px-1">
+              <Text className="text-sm font-semibold uppercase tracking-[1px] text-muted-foreground">Shopping items</Text>
+              <Text className="text-sm text-muted-foreground">{pedingItems.length} active</Text>
+            </View>
+          </View>
+        }
+        ListEmptyComponent={
+        <View className="flex-1 items-center">
+          <Text className="text-sm font-semibold text-primary-foreground">No active</Text>
         </View>
-      </Show>
-    </View>
+
+      }
+        ListFooterComponent={
+          <View style={{paddingBottom:120}}>
+            <CompletedItems/>
+          </View>
+      }
+        />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    paddingTop: 60,
-    gap: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  button: {
-    backgroundColor: "#0a7ea4",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "600",
-  },
-});
+
+//FIRST VERSION WITH ITEMS.MAP
+/* 
+   <View className="flex-1 bg-background dark:bg-background-dark">
+      <ScrollView
+        className="flex-1"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ padding: 20, paddingBottom:150 , gap: 14}}
+      >
+      <TabScreenBackground />
+      <ListHeroCard/>
+      <View className="flex-row items-center justify-between px-1">
+        <Text className="text-sm font-semibold uppercase tracking-[1px] text-muted-foreground">
+          Shopping items
+        </Text>
+        <Text className="text-sm text-muted-foreground">{pedingItems.length} active</Text>
+      </View>
+      
+        {pedingItems.map( item => <PadingItemCard key={item.id} item={item} /> )}
+
+        <CompletedItems/>
+
+      </ScrollView>
+    </View>
+*/

@@ -8,6 +8,10 @@ import {
 import { Stack } from "expo-router";
 import { useColorScheme } from "react-native";
 import "../../global.css";
+import * as WebBrowser from "expo-web-browser"; 
+import "../../global.css";
+
+WebBrowser.maybeCompleteAuthSession(); 
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string;
 

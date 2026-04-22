@@ -114,20 +114,23 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
     const currenItem = get().items.find( (item) => item.id === id );
     if(!currenItem) return;
 
+
     const nextPurchased = !currenItem.purchased;
     set({error: null});
 
     try {
-      const res = await fetch(`/api/item/${id}`, {
+      const res = await fetch(`/api/items/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify({purchased: nextPurchased})
       });
 
+      //console.log(`💣💣 /api/item/${id} + ${res.status}`, nextPurchased);
+
       const payload = ( await res.json() ) as ItemResponse;
       if(!res.ok) throw new Error(`Request failed (${res.status})`);
       
-      set((state) => ({ items: state.items.map( (item) => (item.id === id ? payload.item : item ) ) }));
+      set((state) => ({ items: state.items.map( (item) => (item.id === id ? payload.item : item )) }));
     } catch (error) {
       console.error("Error togglin purchased:", error);
       set( {error: "Something went wrong"});
@@ -160,5 +163,4 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
       set({error: "Something went wrong"});
     }
   },
-
 }));

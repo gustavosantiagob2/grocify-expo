@@ -59,6 +59,20 @@ module.exports = {
           DEFAULT: "hsl(146, 80%, 40%)",
           dark: "hsl(146, 70%, 52%)",
         },
+        priority: {
+          low: {
+            DEFAULT: "hsl(142, 70%, 18%)", // fundo verde escuro
+            foreground: "hsl(142, 60%, 55%)", // texto verde claro
+          },
+          medium: {
+            DEFAULT: "hsl(35, 60%, 18%)", // fundo laranja escuro
+            foreground: "hsl(35, 80%, 55%)", // texto laranja
+          },
+          high: {
+            DEFAULT: "hsl(6, 55%, 20%)", // fundo vermelho escuro
+            foreground: "hsl(6, 74%, 54%)", // texto vermelho
+          },
+        },
       },
     },
   },
