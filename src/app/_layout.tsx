@@ -10,6 +10,7 @@ import { useColorScheme } from "react-native";
 import "../../global.css";
 import * as WebBrowser from "expo-web-browser"; 
 import "../../global.css";
+import { KeyboardProvider } from "react-native-keyboard-controller"
 
 WebBrowser.maybeCompleteAuthSession(); 
 
@@ -26,9 +27,11 @@ export default function RootLayout() {
 
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }} />
-      </ThemeProvider>
+      <KeyboardProvider>
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <Stack screenOptions={{ headerShown: false }} />
+        </ThemeProvider>
+      </KeyboardProvider>
     </ClerkProvider>
   );
 }
