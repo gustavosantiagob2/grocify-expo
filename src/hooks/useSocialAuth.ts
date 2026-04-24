@@ -7,9 +7,10 @@ const useSocialAuth = () => {
   const { startSSOFlow } = useSSO();
 
   const handleSocialAuth = async ( strategy: "oauth_google" | "oauth_github" | "oauth_apple", ) => {
-    setLoadingStrategy(strategy); //guard againts concurrent flows
 
+    
     if (loadingStrategy) return;
+    setLoadingStrategy(strategy); //guard againts concurrent flows
 
     try {
       const { createdSessionId, setActive } = await startSSOFlow({ strategy });

@@ -36,7 +36,7 @@
       "@clerk/expo",
       "expo-secure-store",
       "expo-web-browser",
-      "/.scripts/withAndroidDrawables.js"
+      "./scripts/withAndroidDrawables.js"
     ],
     "experiments": {
       "typedRoutes": true

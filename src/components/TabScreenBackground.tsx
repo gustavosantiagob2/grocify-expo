@@ -2,7 +2,7 @@ import { View } from "react-native";
 
 export default function TabScreenBackground() {
   return (
-    <View pointerEvents="none" className="absolute inset-0">
+    <View pointerEvents="none" className="absolute inset-0 mt-10">
       <View
         pointerEvents="none"
         className="absolute -left-24 -top-10 h-64 w-64 rounded-full bg-accent dark:bg-accent-dark"
